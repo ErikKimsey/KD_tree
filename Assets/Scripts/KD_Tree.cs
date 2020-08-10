@@ -12,16 +12,24 @@ public class KD_Tree : MonoBehaviour
     public string tagName;
     private int totalNodeCount;
     // Start is called before the first frame update
+    public float xAngle, yAngle, zAngle;
     void Start()
     {
-        SetTreeNodesArray();
-        totalNodeCount = treeNodesArr.Length;
+        StartCoroutine(SetTreeNodesArray());
         treeNodesList = new List<KD_Node>();
     }
 
-    private void SetTreeNodesArray(){
+    IEnumerator SetTreeNodesArray(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
-        Debug.Log(treeNodesArr[0].transform.position);
+        totalNodeCount = treeNodesArr.Length;
+        // Debug.Log(totalNodeCount);
+        if(totalNodeCount > 0){
+            for (int i = 0; i < totalNodeCount; i++)
+            {
+                treeNodesArr[i].transform.Rotate(xAngle, yAngle, zAngle, Space.World);
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
     }
 
     private void CreateKDTree(){
