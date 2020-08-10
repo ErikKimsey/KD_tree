@@ -10,10 +10,12 @@ public class KD_Tree : MonoBehaviour
     GameObject[] treeNodesArr;
     List<KD_Node> treeNodesList;
     public string tagName;
+    private int totalNodeCount;
     // Start is called before the first frame update
     void Start()
     {
         SetTreeNodesArray();
+        totalNodeCount = treeNodesArr.Length;
         treeNodesList = new List<KD_Node>();
     }
 
@@ -23,14 +25,20 @@ public class KD_Tree : MonoBehaviour
     }
 
     private void CreateKDTree(){
-        foreach (var item in treeNodesArr)
-        {
-            
+        if(treeNodesList.Count < 1){
+            KD_Node root = new KD_Node(treeNodesArr[0], 0);
+            root.SetIsRoot(true);
+            treeNodesList.Add(root);
+        } else {
+            for (int i = 1; i < totalNodeCount; i++)
+            {
+                
+            }
         }
     }
 
-    private void InsertNode(GameObject ){
-        
+    private void InsertNode(GameObject _nodeObj){
+
     }
 
     // Update is called once per frame

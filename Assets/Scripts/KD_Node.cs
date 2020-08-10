@@ -2,21 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KD_Node : MonoBehaviour
+class KD_Node : MonoBehaviour
 {
+    private GameObject node;
     private int nodeId;
-    private Vector3 nodePosition;
-    private bool isRoot;
+    private bool isRoot = false;
+    private Transform nodeTransform;
 
-    public void SetNodeID(int _ID){
-        this.nodeId = _ID;
+    public KD_Node(GameObject _node, int _ID){
+        this.node = _node;
+        this.nodeId = _ID;  
     }
 
-    public void SetNodePosition(Vector3 _nodePosition){
-        this.nodePosition = _nodePosition;
+    public int GetNodeID(){
+        return this.nodeId;
+    }
+
+    public void SetIsRoot(bool _isRoot){
+        if(_isRoot) this.isRoot = true;
+    }
+
+    public bool GetIsRoot(){
+        return this.isRoot;
+    }
+
+    public void SetNodeTransform(Transform _transform){
+        nodeTransform = _transform;
     }
 
     public Vector3 GetNodePosition(){
-        return this.nodePosition;
+        return this.nodeTransform.position;
+    }
+
+    public void RotateNode(){
+        // 
     }
 }
