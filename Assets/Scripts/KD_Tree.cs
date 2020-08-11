@@ -38,32 +38,57 @@ public class KD_Tree : MonoBehaviour
             KD_Node root = new KD_Node(treeNodesArr[0], 0);
             root.SetIsRoot(true);
             treeNodesList.Add(root);
-            nodeListDepth += 1;
         } else {
-            for (int i = 1; i < totalNodeCount; i++)
-            {
-                if(i % 3 == 0){
-
-                } else if (i % 2 == 0){
-                    
-                } else {
-                    // if (i-1 != root):
-                        // if(arr[i] > arr[i-1]):
-                            // arr[i] == arr[i-1].rightChild
-                        // else:
-                            // arr[i] == arr[i-1].leftChild
-                }
-
-            }
+           for (int i = 1; i < treeNodesArr.Length; i++){
+               CompareBuildTree(treeNodesArr[i], i);
+           }
         }
-
-        // if not root (dim 0):
-        // -- if (dim % 3 == 0): compare Z
-        //  -- if (dim % 2 == 0): compare Y
-        //  -- else: compare X
     }
 
-    private 
+    private void CompareBuildTree(GameObject newNode, int arrIndex){
+        KD_Node tempNode = new KD_Node(newNode, arrIndex);
+        int nodeDepth = 1;
+        while (nodeDepth < treeNodesList.Count)
+        {
+            if(nodeDepth % 3 == 0){
+                CmpZ(tempNode, nodeDepth, arrIndex);
+            } else if (nodeDepth % 2 == 0){
+                CmpY(tempNode, nodeDepth, arrIndex);
+            } else {
+                CmpX(tempNode, nodeDepth, arrIndex);
+            }
+            nodeDepth += 1;
+        }
+        treeNodesList.Add(tempNode);
+    }
+
+    private void CmpX(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
+    
+    private void CmpY(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
+
+    private void CmpZ(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
+
+        // while (nodeDepth < TreeDepth):
+            // *** X ***
+            // if ( node.x > tree[nodeDepth].x):
+                // node = rightChild of tree[nodeDepth]
+            // else:
+                // node = leftChild of tree[nodeDepth]
+            // nodeDepth += 1;
+                // *** Y ***
+                // if ( node.y > tree[nodeDepth].y):
+                    // node = rightChild of tree[nodeDepth]
+                // else:
+                    // node = leftChild of tree[nodeDepth]
+                // nodeDepth += 1;
+                    // *** Z ***
+                    // if(node.z > tree[nodeDepth].z)
+                        // node = rightChild of tree[nodeDepth]
+                    // else:
+                        // node = leftChild of tree[nodeDepth]
+
+
+    }
 
 
 

@@ -8,6 +8,7 @@ class KD_Node : MonoBehaviour
     private int nodeId;
     private bool isRoot = false;
     private Transform nodeTransform;
+    public KD_Node leftChild, rightChild;
 
     public KD_Node(GameObject _node, int _ID){
         this.node = _node;
