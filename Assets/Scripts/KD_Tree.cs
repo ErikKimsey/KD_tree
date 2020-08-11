@@ -62,7 +62,9 @@ public class KD_Tree : MonoBehaviour
         treeNodesList.Add(tempNode);
     }
 
-    private void CmpX(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
+    private void CmpX(KD_Node _tempNode, int _nodeDepth, int _arrIndex){
+        
+    }
     
     private void CmpY(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
 
