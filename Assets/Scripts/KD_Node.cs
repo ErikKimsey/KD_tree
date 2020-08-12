@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class KD_Node : MonoBehaviour
+class KD_Node 
 {
     private GameObject node;
     private int nodeId;
