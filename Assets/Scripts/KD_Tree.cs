@@ -29,21 +29,20 @@ public class KD_Tree : MonoBehaviour
     private void CreateKDTree(){
           KD_Node root = null;
            for (int i = 0; i < treeNodesArr.Length; i++){
-              root = InsertNode(root, treeNodesArr[i], 0);
+              root = InsertNode(root, treeNodesArr[i], i);
               treeNodesList.Add(root);
            }
            StartCoroutine(RotateNodes());
     }
 
     /** BEGIN INSERT */
-    private KD_Node InsertNode(KD_Node root, GameObject newNode, int depth){
-        Debug.Log(arrIndex);
-        KD_Node tempNode = new KD_Node(newNode, arrIndex);
+    private KD_Node InsertNode(KD_Node root, GameObject newNode, int _depth){
+        KD_Node tempNode = new KD_Node(newNode, _depth);
         if(root == null) {
             return tempNode;
         }
-        int currDepth = 1;
-        while(currDepth < treeNodesList.Count){
+        int currDepth = 0;
+        while(currDepth < _depth){
           if(currDepth % 3 == 0){
             CmpZ(root, tempNode);
           } else if (currDepth % 2 == 0) {
@@ -83,19 +82,28 @@ public class KD_Tree : MonoBehaviour
     /** END INSERT */
     
     /** BEGIN SEARCH */
-    public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
-        if(_root == null) return null;
-        Vector3 rootPos = _root.GetNodePosition();
-        KD_Node temp;
-        
-        int currAxis = 0;
-        while(currAxis < ){
-            if(_touchPos.x < rootPos.x){
+    // 1. Touch
+    // 2. use touch position to identify object touched
+    // 3. make object touched the ROOT
+    // 4. use ROOT to search for child node objects
+    // ---- right node: a. perform action, b. call SearchTree with right child as ROOT
+    // ---- left node: a. perform action, b. call SearchTree with right child as ROOT
 
-            }
-        }
-        return
-    }
+    
+    // public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
+    //     // perform action on Cube.142
+    //     if(_root == null) return null;
+    //     Vector3 rootPos = _root.GetNodePosition();
+    //     KD_Node temp;
+        
+    //     int currAxis = 0;
+    //     // while(currAxis < ){
+    //     //     if(_touchPos.x < rootPos.x){
+
+    //     //     }
+    //     // }
+    //     return;
+    // }
     /** END SEARCH */
 
     /** BEGIN ROTATION FUNC*/
@@ -109,4 +117,8 @@ public class KD_Tree : MonoBehaviour
         }
     }
     /** END ROTATION FUNC*/
+
+    /** BEGIN FIND TOUCHED */
+
+    /** END FIND TOUCHED */
 }
