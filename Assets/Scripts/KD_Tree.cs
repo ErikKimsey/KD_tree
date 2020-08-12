@@ -46,50 +46,38 @@ public class KD_Tree : MonoBehaviour
         int currDepth = 0;
         while(currDepth < treeNodesList.Count){
           if(arrIndex % 3 == 0){
-            // compare z of root and tempNode
-            // if (tempZ > rootZ): root.rightChild = tempNode
+            CmpZ(root, tempNode);
           } else if (arrIndex % 2 == 0) {
-            // compare y
+            CmpY(root, tempNode);
           } else {
-            // compare x
+            CmpX(root, tempNode);
           }
           currDepth += 1;
         }
         return root;
     }
-  }
 
+    private void CmpX(KD_Node root, KD_Node temp){
+         if(root.GetNodePosition().x < temp.GetNodePosition().x){
+           root.rightChild = temp;
+         } else {
+          root.leftChild = temp;
+        }
+    }
 
-    // private void CmpX(root, temp){
-      //    if(rootX < tempX): root.rightChild == temp;
-      //    else: root.leftChild = temp
-    // }
-    
-    // private void CmpY(root, temp){
-      //    if(rootY < tempY): root.rightChild == temp;
-      //    else: root.leftChild = temp
-    // }
+    private void CmpY(KD_Node root, KD_Node temp){
+      if(root.GetNodePosition().y < temp.GetNodePosition().y){
+        root.rightChild = temp;
+      } else {
+        root.leftChild = temp;
+      }
+    }
 
-    // private void CmpZ(root, temp){
-    //    if(rootZ < tempZ): root.rightChild == temp;
-    //    else: root.leftChild = temp
-    // }
-
-        // while (nodeDepth < TreeDepth):
-            // *** X ***
-            // if ( node.x > tree[nodeDepth].x):
-                // node = rightChild of tree[nodeDepth]
-            // else:
-                // node = leftChild of tree[nodeDepth]
-            // nodeDepth += 1;
-                // *** Y ***
-                // if ( node.y > tree[nodeDepth].y):
-                    // node = rightChild of tree[nodeDepth]
-                // else:
-                    // node = leftChild of tree[nodeDepth]
-                // nodeDepth += 1;
-                    // *** Z ***
-                    // if(node.z > tree[nodeDepth].z)
-                        // node = rightChild of tree[nodeDepth]
-                    // else:
-                        // node = leftChild of tree[nodeDepth]
+    private void CmpZ(KD_Node root, KD_Node temp){
+      if(root.GetNodePosition().z < temp.GetNodePosition().z){
+        root.rightChild = temp;
+      } else {
+      root.leftChild = temp;
+      }
+    }
+}
