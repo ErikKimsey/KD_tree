@@ -32,6 +32,7 @@ public class KD_Tree : MonoBehaviour
               root = InsertNode(root, treeNodesArr[i], i);
               treeNodesList.Add(root);
            }
+           StartCoroutine(RotateNodes());
     }
 
     /** BEGIN INSERT */
@@ -52,7 +53,6 @@ public class KD_Tree : MonoBehaviour
           }
           currDepth = currDepth + 1;
         }
-        tempNode.RotateNode();
         return tempNode;
     }
 
@@ -84,4 +84,16 @@ public class KD_Tree : MonoBehaviour
     
     /** BEGIN SEARCH */
     /** END SEARCH */
+
+    /** BEGIN ROTATION FUNC*/
+
+
+
+    IEnumerator RotateNodes(){
+        foreach (var item in treeNodesList){
+            item.RotateNode();
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+    /** END ROTATION FUNC*/
 }
