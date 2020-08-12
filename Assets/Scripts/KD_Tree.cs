@@ -34,41 +34,46 @@ public class KD_Tree : MonoBehaviour
     }
 
     private void CreateKDTree(){
-        if(treeNodesList.Count < 1){
-            KD_Node root = new KD_Node(treeNodesArr[0], 0);
-            root.SetIsRoot(true);
-            treeNodesList.Add(root);
-        } else {
+          InsertNode(null, treeNodesArr[0], 0);
            for (int i = 1; i < treeNodesArr.Length; i++){
-               CompareBuildTree(treeNodesArr[i], i);
+              treeNodesList.Add(InsertNode(null, treeNodesArr[i],i));
            }
-        }
     }
 
-    private void CompareBuildTree(GameObject newNode, int arrIndex){
+    private KD_Node InsertNode(KD_Node root, GameObject newNode, int arrIndex){
         KD_Node tempNode = new KD_Node(newNode, arrIndex);
-        int nodeDepth = 1;
-        while (nodeDepth < treeNodesList.Count)
-        {
-            if(nodeDepth % 3 == 0){
-                CmpZ(tempNode, nodeDepth, arrIndex);
-            } else if (nodeDepth % 2 == 0){
-                CmpY(tempNode, nodeDepth, arrIndex);
-            } else {
-                CmpX(tempNode, nodeDepth, arrIndex);
-            }
-            nodeDepth += 1;
+        if(root == null) return tempNode;
+        int currDepth = 0;
+        while(currDepth < treeNodesList.Count){
+          if(arrIndex % 3 == 0){
+            // compare z of root and tempNode
+            // if (tempZ > rootZ): root.rightChild = tempNode
+          } else if (arrIndex % 2 == 0) {
+            // compare y
+          } else {
+            // compare x
+          }
+          currDepth += 1;
         }
-        treeNodesList.Add(tempNode);
+        return root;
     }
+  }
 
-    private void CmpX(KD_Node _tempNode, int _nodeDepth, int _arrIndex){
-        
-    }
+
+    // private void CmpX(root, temp){
+      //    if(rootX < tempX): root.rightChild == temp;
+      //    else: root.leftChild = temp
+    // }
     
-    private void CmpY(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
+    // private void CmpY(root, temp){
+      //    if(rootY < tempY): root.rightChild == temp;
+      //    else: root.leftChild = temp
+    // }
 
-    private void CmpZ(KD_Node _tempNode, int _nodeDepth, int _arrIndex){}
+    // private void CmpZ(root, temp){
+    //    if(rootZ < tempZ): root.rightChild == temp;
+    //    else: root.leftChild = temp
+    // }
 
         // while (nodeDepth < TreeDepth):
             // *** X ***
@@ -88,19 +93,3 @@ public class KD_Tree : MonoBehaviour
                         // node = rightChild of tree[nodeDepth]
                     // else:
                         // node = leftChild of tree[nodeDepth]
-
-
-    }
-
-
-
-    private void InsertNode(GameObject _nodeObj){
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}

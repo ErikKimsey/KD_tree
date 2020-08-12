@@ -6,28 +6,20 @@ class KD_Node : MonoBehaviour
 {
     private GameObject node;
     private int nodeId;
-    private bool isRoot = false;
     private Transform nodeTransform;
     public KD_Node leftChild, rightChild;
 
     public KD_Node(GameObject _node, int _ID){
         this.node = _node;
         this.nodeId = _ID;  
+        this.SetNodeTransform(this.node.transform);
     }
 
     public int GetNodeID(){
         return this.nodeId;
     }
 
-    public void SetIsRoot(bool _isRoot){
-        if(_isRoot) this.isRoot = true;
-    }
-
-    public bool GetIsRoot(){
-        return this.isRoot;
-    }
-
-    public void SetNodeTransform(Transform _transform){
+    private void SetNodeTransform(Transform _transform){
         nodeTransform = _transform;
     }
 
