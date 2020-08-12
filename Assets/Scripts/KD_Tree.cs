@@ -29,14 +29,14 @@ public class KD_Tree : MonoBehaviour
     private void CreateKDTree(){
           KD_Node root = null;
            for (int i = 0; i < treeNodesArr.Length; i++){
-              root = InsertNode(root, treeNodesArr[i], i);
+              root = InsertNode(root, treeNodesArr[i], 0);
               treeNodesList.Add(root);
            }
            StartCoroutine(RotateNodes());
     }
 
     /** BEGIN INSERT */
-    private KD_Node InsertNode(KD_Node root, GameObject newNode, int arrIndex){
+    private KD_Node InsertNode(KD_Node root, GameObject newNode, int depth){
         Debug.Log(arrIndex);
         KD_Node tempNode = new KD_Node(newNode, arrIndex);
         if(root == null) {
@@ -83,6 +83,19 @@ public class KD_Tree : MonoBehaviour
     /** END INSERT */
     
     /** BEGIN SEARCH */
+    public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
+        if(_root == null) return null;
+        Vector3 rootPos = _root.GetNodePosition();
+        KD_Node temp;
+        
+        int currAxis = 0;
+        while(currAxis < ){
+            if(_touchPos.x < rootPos.x){
+
+            }
+        }
+        return
+    }
     /** END SEARCH */
 
     /** BEGIN ROTATION FUNC*/

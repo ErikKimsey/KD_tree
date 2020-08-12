@@ -5,18 +5,18 @@ using UnityEngine;
 class KD_Node 
 {
     private GameObject node;
-    private int nodeId;
+    private int nodeDepth;
     private Transform nodeTransform;
     public KD_Node leftChild, rightChild;   
 
-    public KD_Node(GameObject _node, int _ID){
+    public KD_Node(GameObject _node, int _nodeDepth){
         this.node = _node;
-        this.nodeId = _ID;  
+        this.nodeDepth = _nodeDepth;  
         this.SetNodeTransform(this.node.transform);
     }
 
     public int GetNodeID(){
-        return this.nodeId;
+        return this.nodeDepth;
     }
 
     private void SetNodeTransform(Transform _transform){
