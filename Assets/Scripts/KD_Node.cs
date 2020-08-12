@@ -7,11 +7,13 @@ class KD_Node
     private GameObject node;
     private int nodeDepth;
     private Transform nodeTransform;
+    public string nodeName;
     public KD_Node leftChild, rightChild;   
 
     public KD_Node(GameObject _node, int _nodeDepth){
         this.node = _node;
         this.nodeDepth = _nodeDepth;  
+        this.nodeName = this.node.name;
         this.SetNodeTransform(this.node.transform);
     }
 

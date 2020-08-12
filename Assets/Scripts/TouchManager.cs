@@ -17,15 +17,21 @@ public class TouchManager : MonoBehaviour
     private void HandleTouch(){
         touch = Input.GetTouch(0);
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
-        Debug.Log(ray);
         if(touch.phase == TouchPhase.Began){
-            // 
+            HandleHit(ray);
         }
         if (touch.phase == TouchPhase.Moved) {
-            // 
+            HandleHit(ray);
         }
         if (touch.phase == TouchPhase.Ended) {
             // 
+        }
+    }
+
+    private void HandleHit(Ray _ray){
+        if(Physics.Raycast(_ray.origin, _ray.direction, out hit)){
+
+            KD_Tree.SearchTree(hit.collider);
         }
     }
 

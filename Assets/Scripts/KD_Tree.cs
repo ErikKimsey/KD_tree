@@ -91,19 +91,20 @@ public class KD_Tree : MonoBehaviour
 
     
     // public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
-    //     // perform action on Cube.142
-    //     if(_root == null) return null;
-    //     Vector3 rootPos = _root.GetNodePosition();
-    //     KD_Node temp;
-        
-    //     int currAxis = 0;
-    //     // while(currAxis < ){
-    //     //     if(_touchPos.x < rootPos.x){
+    public static void SearchTree(Collider _col){
+        // perform action on Cube.142
+        Debug.Log(_col);
+        // if(_root == null) return null;
 
-    //     //     }
-    //     // }
-    //     return;
-    // }
+        KD_Node temp;
+        
+        int currAxis = 0;
+        // while(currAxis < ){
+        //     if(_touchPos.x < rootPos.x){
+
+        //     }
+        // }
+    }
     /** END SEARCH */
 
     /** BEGIN ROTATION FUNC*/
