@@ -7,7 +7,7 @@ class KD_Node
     private GameObject node;
     private int nodeId;
     private Transform nodeTransform;
-    public KD_Node leftChild, rightChild;
+    public KD_Node leftChild, rightChild;   
 
     public KD_Node(GameObject _node, int _ID){
         this.node = _node;
@@ -28,6 +28,6 @@ class KD_Node
     }
 
     public void RotateNode(){
-        // 
+        this.nodeTransform.Rotate(90f, 90f, 0f, Space.World);
     }
 }
