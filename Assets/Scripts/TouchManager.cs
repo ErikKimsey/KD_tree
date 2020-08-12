@@ -30,7 +30,6 @@ public class TouchManager : MonoBehaviour
 
     private void HandleHit(Ray _ray){
         if(Physics.Raycast(_ray.origin, _ray.direction, out hit)){
-
             KD_Tree.SearchTree(hit.collider);
         }
     }

@@ -8,7 +8,7 @@ public class KD_Tree : MonoBehaviour
 {
 
     GameObject[] treeNodesArr;
-    List<KD_Node> treeNodesList;
+    private static List<KD_Node> treeNodesList;
     public string tagName;
     private int totalNodeCount;
     private int nodeListDepth;
@@ -93,12 +93,12 @@ public class KD_Tree : MonoBehaviour
     // public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
     public static void SearchTree(Collider _col){
         // perform action on Cube.142
-        Debug.Log(_col);
-        // if(_root == null) return null;
-
-        KD_Node temp;
+        KD_Node temp = treeNodesList.Find(x => x.nodeName == _col.name);
+        Debug.Log(temp.GetNodePosition());
         
-        int currAxis = 0;
+        // if(_root == null) return null;
+        
+        // int currAxis = 0;
         // while(currAxis < ){
         //     if(_touchPos.x < rootPos.x){
 
