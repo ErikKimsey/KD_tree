@@ -34,15 +34,19 @@ public class KD_Tree : MonoBehaviour
 
     /** BEGIN INSERT */
   
-    private KD_Node Insertion(KD_Node _root, KD_Node _child, int _depth){
-        KD_Node temp;
-        if(_root == null) {
-            return _root;
-        }
-        if(_depth % 3 == 0){
-            CmpZ(_root, _child)
-        }
-    }
+    // private KD_Node Insertion(KD_Node _root, KD_Node _child, int _depth){
+    //     KD_Node temp;
+    //     if(_root == null) {
+    //         return _root;
+    //     }
+    //     if(_depth % 3 == 0){
+    //         CmpZ(_root, _child)
+    //     }
+    // }
+
+    /** END INSERT */
+
+    /** BEGIN COMPARE */
 
     private void CmpX(KD_Node _root, KD_Node _child, int _depth){
          if(_root.GetNodePosition().x <= _child.GetNodePosition().x){
@@ -68,7 +72,8 @@ public class KD_Tree : MonoBehaviour
       }
     }
 
-    /** END INSERT */
+    /** END COMPARE */
+
     
     /** BEGIN SEARCH */
     // 1. Touch
@@ -102,7 +107,7 @@ public class KD_Tree : MonoBehaviour
 
 
     IEnumerator RotateNodes(){
-        foreach (var item in treeNodesArr){
+        foreach (var item in treeNodesList){
             item.RotateNode();
             yield return new WaitForSeconds(0.01f);
         }
