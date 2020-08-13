@@ -10,9 +10,8 @@ class KD_Node
     public string nodeName;
     public KD_Node leftChild, rightChild;   
 
-    public KD_Node(GameObject _node, int _nodeDepth){
+    public KD_Node(GameObject _node){
         this.node = _node;
-        this.nodeDepth = _nodeDepth;  
         this.nodeName = this.node.name;
         this.SetNodeTransform(this.node.transform);
     }

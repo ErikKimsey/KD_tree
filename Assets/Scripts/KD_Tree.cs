@@ -12,6 +12,7 @@ public class KD_Tree : MonoBehaviour
     public string tagName;
     private int totalNodeCount;
     private int nodeListDepth;
+    public int totalAxes = 3;
 
     public float xAngle, yAngle, zAngle;
     void Start()
@@ -19,51 +20,39 @@ public class KD_Tree : MonoBehaviour
         treeNodesList = new List<KD_Node>();
         nodeListDepth = 0;
         SetTreeNodesArray();
-        CreateKDTree();
     }
 
     private void SetTreeNodesArray(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
-    }
-
-    private void CreateKDTree(){
-          KD_Node root = null;
-           for (int i = 0; i < treeNodesArr.Length; i++){
-              root = InsertNode(root, treeNodesArr[i], i);
-              treeNodesList.Add(root);
-           }
-           StartCoroutine(RotateNodes());
+        for(int i= 0; i <treeNodesArr.Length; i++)
+        {
+            KD_Node node = new KD_Node(treeNodesArr[i]);
+            treeNodesList.Add(node);
+        }
+        StartCoroutine(RotateNodes());  
     }
 
     /** BEGIN INSERT */
-    private KD_Node InsertNode(KD_Node root, GameObject newNode, int _depth){
-        KD_Node tempNode = new KD_Node(newNode, _depth);
-        if(root == null) {
-            return tempNode;
+  
+    private KD_Node Insertion(KD_Node _root, KD_Node _child, int _depth){
+        KD_Node temp;
+        if(_root == null) {
+            return _root;
         }
-        int currDepth = 0;
-        while(currDepth < _depth){
-          if(currDepth % 3 == 0){
-            CmpZ(root, tempNode);
-          } else if (currDepth % 2 == 0) {
-            CmpY(root, tempNode);
-          } else {
-            CmpX(root, tempNode);
-          }
-          currDepth = currDepth + 1;
+        if(_depth % 3 == 0){
+            CmpZ(_root, _child)
         }
-        return tempNode;
     }
 
-    private void CmpX(KD_Node root, KD_Node temp){
-         if(root.GetNodePosition().x <= temp.GetNodePosition().x){
-           root.rightChild = temp;
+    private void CmpX(KD_Node _root, KD_Node _child, int _depth){
+         if(_root.GetNodePosition().x <= _child.GetNodePosition().x){
+           _root.rightChild = _child;
          } else {
-          root.leftChild = temp;
+          _root.leftChild = _child;
         }
     }
 
-    private void CmpY(KD_Node root, KD_Node temp){
+    private void CmpY(KD_Node root, KD_Node temp, int _currAxis){
       if(root.GetNodePosition().y <= temp.GetNodePosition().y){
         root.rightChild = temp;
       } else {
@@ -71,7 +60,7 @@ public class KD_Tree : MonoBehaviour
       }
     }
 
-    private void CmpZ(KD_Node root, KD_Node temp){
+    private void CmpZ(KD_Node root, KD_Node temp, int _currAxis){
       if(root.GetNodePosition().z <= temp.GetNodePosition().z){
         root.rightChild = temp;
       } else {
@@ -94,7 +83,8 @@ public class KD_Tree : MonoBehaviour
     public static void SearchTree(Collider _col){
         // perform action on Cube.142
         KD_Node temp = treeNodesList.Find(x => x.nodeName == _col.name);
-        Debug.Log(temp.GetNodePosition());
+        Debug.Log(temp.leftChild);
+        Debug.Log(temp.rightChild);
         
         // if(_root == null) return null;
         
@@ -112,7 +102,7 @@ public class KD_Tree : MonoBehaviour
 
 
     IEnumerator RotateNodes(){
-        foreach (var item in treeNodesList){
+        foreach (var item in treeNodesArr){
             item.RotateNode();
             yield return new WaitForSeconds(0.01f);
         }
