@@ -12,66 +12,89 @@ public class KD_Tree : MonoBehaviour
     public string tagName;
     private int totalNodeCount;
     private int nodeListDepth;
-    public int totalAxes = 3;
+    private int globalDepth = 1;
 
     public float xAngle, yAngle, zAngle;
     void Start()
     {
         treeNodesList = new List<KD_Node>();
         nodeListDepth = 0;
-        SetTreeNodesArray();
+        SetTreeNodesList();
     }
 
-    private void SetTreeNodesArray(){
+    private void SetTreeNodesList(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
         for(int i= 0; i <treeNodesArr.Length; i++)
         {
             KD_Node node = new KD_Node(treeNodesArr[i]);
             treeNodesList.Add(node);
         }
-        StartCoroutine(RotateNodes());  
+        StartCoroutine(RotateNodes());
     }
+    
+    /** BEGIN ASSIGN CHILDREN */
+    private void AssignChildren(){
+        for (int i = 0; i < treeNodesList.Count; i++){
+            Insert(treeNodesList[i], treeNodesList[i+1]);
+        }
+        foreach (var item in treeNodesList){
+            Debug.Log(item.leftChild);
+            Debug.Log(item.rightChild);
+        }
+    }
+    /** END ASSIGN CHILDREN */
+
 
     /** BEGIN INSERT */
+    private void Insert(KD_Node _root, KD_Node _child){
+        Insertion(_root, _child, globalDepth);
+    }
   
-    // private KD_Node Insertion(KD_Node _root, KD_Node _child, int _depth){
-    //     KD_Node temp;
-    //     if(_root == null) {
-    //         return _root;
-    //     }
-    //     if(_depth % 3 == 0){
-    //         CmpZ(_root, _child)
-    //     }
-    // }
-
+    private void Insertion(KD_Node _root, KD_Node _child, int _depth){
+        if(_depth % 3 == 0) {
+            CmpZ(_root, _child, _depth);
+        } else if (_depth % 2 == 0) {
+            CmpY(_root, _child, _depth);
+        } else {
+            CmpX(_root, _child, _depth);
+        }
+    }
     /** END INSERT */
 
-    /** BEGIN COMPARE */
+    private int IncrDepth(int _depth) {
+        return _depth + 1;
+    }
 
-    private void CmpX(KD_Node _root, KD_Node _child, int _depth){
+    /** BEGIN COMPARE */
+    private void CmpX(KD_Node _root, KD_Node _child, int _depth) {
          if(_root.GetNodePosition().x <= _child.GetNodePosition().x){
            _root.rightChild = _child;
          } else {
           _root.leftChild = _child;
         }
+        _depth = IncrDepth(_depth);
+        Insertion(_root, _child, _depth);
     }
 
-    private void CmpY(KD_Node root, KD_Node temp, int _currAxis){
-      if(root.GetNodePosition().y <= temp.GetNodePosition().y){
-        root.rightChild = temp;
+    private void CmpY(KD_Node _root, KD_Node _child, int _depth) {
+      if(_root.GetNodePosition().y <= _child.GetNodePosition().y){
+        _root.rightChild = _child;
       } else {
-        root.leftChild = temp;
+        _root.leftChild = _child;
       }
+      _depth = IncrDepth(_depth);
+      Insertion(_root, _child, _depth);
     }
 
-    private void CmpZ(KD_Node root, KD_Node temp, int _currAxis){
-      if(root.GetNodePosition().z <= temp.GetNodePosition().z){
-        root.rightChild = temp;
+    private void CmpZ(KD_Node _root, KD_Node _child, int _depth) {
+      if(_root.GetNodePosition().z <= _child.GetNodePosition().z){
+        _root.rightChild = _child;
       } else {
-        root.leftChild = temp;
+        _root.leftChild = _child;
       }
+      _depth = IncrDepth(_depth);
+      Insertion(_root, _child, _depth);
     }
-
     /** END COMPARE */
 
     
