@@ -10,9 +10,11 @@ public class KD_Tree : MonoBehaviour
     GameObject[] treeNodesArr;
     private static List<KD_Node> treeNodesList;
     public string tagName;
+    public int dimensions = 3;
     private int totalNodeCount;
     private int nodeListDepth;
     private int globalDepth = 1;
+
 
     public float xAngle, yAngle, zAngle;
     void Start()
@@ -24,45 +26,43 @@ public class KD_Tree : MonoBehaviour
 
     private void SetTreeNodesList(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
-        for(int i= 0; i <treeNodesArr.Length; i++)
-        {
-            KD_Node node = new KD_Node(treeNodesArr[i]);
-            treeNodesList.Add(node);
-        }
-        StartCoroutine(RotateNodes());
+        treeNodesList.Add(Insert(treeNodesArr, 0));
+        
     }
-    
-    /** BEGIN ASSIGN CHILDREN */
-    private void AssignChildren(){
-        for (int i = 0; i < treeNodesList.Count; i++){
-            Insert(treeNodesList[i], treeNodesList[i+1]);
-        }
-        foreach (var item in treeNodesList){
-            Debug.Log(item.leftChild);
-            Debug.Log(item.rightChild);
-        }
-    }
-    /** END ASSIGN CHILDREN */
-
 
     /** BEGIN INSERT */
-    private void Insert(KD_Node _root, KD_Node _child){
-        Insertion(_root, _child, globalDepth);
+    private KD_Node Insert(GameObject[] nodes, int _depth, KD_Node _parent = null){
+        int currDim = _depth % dimensions;
+        KD_Node node;
+        int median;
+
+        median = Mathf.FloorToInt(nodes.Length / 2);
+        node = new KD_Node(nodes[median]);
+        node.rightChild = Insert(SplitRight(nodes, median), _depth + 1, node);
+        node.leftChild = Insert(SplitRight(nodes, median), _depth + 1, node);
+        return node;
     }
-  
-    private void Insertion(KD_Node _root, KD_Node _child, int _depth){
-        if(_depth % 3 == 0) {
-            CmpZ(_root, _child, _depth);
-        } else if (_depth % 2 == 0) {
-            CmpY(_root, _child, _depth);
-        } else {
-            CmpX(_root, _child, _depth);
+
+    private GameObject[] SplitRight(GameObject[] nodes, int median){
+        GameObject[] right = new GameObject[]{};
+        for (int i = 0; i < median; i++){
+            right[i] = nodes[i];
         }
+        return right;
+    }
+    
+    private GameObject[] SplitLeft(GameObject[] nodes, int median){
+        GameObject[] left = new GameObject[]{};
+        for (int i = median; i < nodes.Length; i++){
+            left[i] = nodes[i];
+        }
+        return left;
     }
     /** END INSERT */
 
     private int IncrDepth(int _depth) {
-        return _depth + 1;
+        globalDepth += 1;
+        return globalDepth;
     }
 
     /** BEGIN COMPARE */
@@ -72,8 +72,6 @@ public class KD_Tree : MonoBehaviour
          } else {
           _root.leftChild = _child;
         }
-        _depth = IncrDepth(_depth);
-        Insertion(_root, _child, _depth);
     }
 
     private void CmpY(KD_Node _root, KD_Node _child, int _depth) {
@@ -82,8 +80,6 @@ public class KD_Tree : MonoBehaviour
       } else {
         _root.leftChild = _child;
       }
-      _depth = IncrDepth(_depth);
-      Insertion(_root, _child, _depth);
     }
 
     private void CmpZ(KD_Node _root, KD_Node _child, int _depth) {
@@ -92,8 +88,6 @@ public class KD_Tree : MonoBehaviour
       } else {
         _root.leftChild = _child;
       }
-      _depth = IncrDepth(_depth);
-      Insertion(_root, _child, _depth);
     }
     /** END COMPARE */
 
