@@ -35,7 +35,9 @@ public class KD_Tree : MonoBehaviour
         int currDim = _depth % dimensions;
         KD_Node node;
         int median;
-
+        /**
+        * sort nodes[] using currDum and comparator (CmpX, CmpY, CmpZ)
+        */
         median = Mathf.FloorToInt(nodes.Length / 2);
         node = new KD_Node(nodes[median]);
         node.rightChild = Insert(SplitRight(nodes, median), _depth + 1, node);
