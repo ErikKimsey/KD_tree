@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +38,15 @@ public class KD_Tree : MonoBehaviour
         int median;
         /**
         * sort nodes[] using currDum and comparator (CmpX, CmpY, CmpZ)
-        */
+        */  
+        if(_depth % currDim == 0){
+            nodes = CmpX(nodes);
+        } else if (_depth % currDim == 1){
+            nodes = CmpY(nodes);
+        } else {
+            nodes = CmpZ(nodes);
+        }
+
         median = Mathf.FloorToInt(nodes.Length / 2);
         node = new KD_Node(nodes[median]);
         node.rightChild = Insert(SplitRight(nodes, median), _depth + 1, node);
@@ -68,28 +77,25 @@ public class KD_Tree : MonoBehaviour
     }
 
     /** BEGIN COMPARE */
-    private void CmpX(KD_Node _root, KD_Node _child, int _depth) {
-         if(_root.GetNodePosition().x <= _child.GetNodePosition().x){
-           _root.rightChild = _child;
-         } else {
-          _root.leftChild = _child;
-        }
+    private GameObject[] CmpX(GameObject[] _nodes) {
+        Array.Sort(_nodes, delegate(GameObject a, GameObject b ) {
+        return a.gameObject.transform.position.x.CompareTo(b.gameObject.transform.position.x);
+        });
+        return _nodes;
     }
 
-    private void CmpY(KD_Node _root, KD_Node _child, int _depth) {
-      if(_root.GetNodePosition().y <= _child.GetNodePosition().y){
-        _root.rightChild = _child;
-      } else {
-        _root.leftChild = _child;
-      }
+    private GameObject[] CmpY(GameObject[] _nodes) {
+        Array.Sort(_nodes, delegate(GameObject a, GameObject b ) {
+        return a.gameObject.transform.position.y.CompareTo(b.gameObject.transform.position.y);
+        });
+        return _nodes;
     }
 
-    private void CmpZ(KD_Node _root, KD_Node _child, int _depth) {
-      if(_root.GetNodePosition().z <= _child.GetNodePosition().z){
-        _root.rightChild = _child;
-      } else {
-        _root.leftChild = _child;
-      }
+    private GameObject[] CmpZ(GameObject[] _nodes) {
+        Array.Sort(_nodes, delegate(GameObject a, GameObject b ) {
+        return a.gameObject.transform.position.y.CompareTo(b.gameObject.transform.position.y);
+        });
+        return _nodes;
     }
     /** END COMPARE */
 
