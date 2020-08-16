@@ -9,7 +9,8 @@ public class KD_Tree : MonoBehaviour
 {
 
     GameObject[] treeNodesArr;
-    private static List<KD_Node> treeNodesList;
+    private static List<GameObject> treeNodesList;
+    private static List<KD_Node> KDNodesList;
     public string tagName;
     public int dimensions = 3;
     private int totalNodeCount;
@@ -27,75 +28,56 @@ public class KD_Tree : MonoBehaviour
 
     private void SetTreeNodesList(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
-        treeNodesList.Add(Insert(treeNodesArr, 0));
+        treeNodesList = new List<GameObject>(treeNodesArr);
+        KDNodesList.Add(Insert(treeNodesList, 0));
         
     }
 
     /** BEGIN INSERT */
-    private KD_Node Insert(GameObject[] nodes, int _depth, KD_Node _parent = null){
+    private KD_Node Insert(List<GameObject> nodes, int _depth, KD_Node _parent = null){
         int currDim = _depth % dimensions;
+        Debug.Log(currDim);
         KD_Node node;
         int median;
         /**
         * sort nodes[] using currDum and comparator (CmpX, CmpY, CmpZ)
-        */  
-        if(_depth % currDim == 0){
-            nodes = CmpX(nodes);
+        */
+        if(_depth == 0) {
+          nodes = CmpX(nodes);
+        } else if(_depth % currDim == 2){
+          nodes = CmpZ(nodes);
         } else if (_depth % currDim == 1){
-            nodes = CmpY(nodes);
+          nodes = CmpY(nodes);
         } else {
-            nodes = CmpZ(nodes);
+          nodes = CmpX(nodes);
         }
 
-        median = Mathf.FloorToInt(nodes.Length / 2);
+        median = Mathf.FloorToInt(nodes.Count / 2);
+        Debug.Log("median");
+        Debug.Log(median);
         node = new KD_Node(nodes[median]);
-        node.rightChild = Insert(SplitRight(nodes, median), _depth + 1, node);
-        node.leftChild = Insert(SplitRight(nodes, median), _depth + 1, node);
+        node.rightChild = Insert(nodes.GetRange(median + 1, nodes.Count), _depth + 1, node);
+        node.leftChild = Insert(nodes.GetRange(0, median-1), _depth + 1, node);
         return node;
     }
 
-    private GameObject[] SplitRight(GameObject[] nodes, int median){
-        GameObject[] right = new GameObject[]{};
-        for (int i = 0; i < median; i++){
-            right[i] = nodes[i];
-        }
-        return right;
-    }
-    
-    private GameObject[] SplitLeft(GameObject[] nodes, int median){
-        GameObject[] left = new GameObject[]{};
-        for (int i = median; i < nodes.Length; i++){
-            left[i] = nodes[i];
-        }
-        return left;
-    }
-    /** END INSERT */
-
-    private int IncrDepth(int _depth) {
-        globalDepth += 1;
-        return globalDepth;
-    }
-
     /** BEGIN COMPARE */
-    private GameObject[] CmpX(GameObject[] _nodes) {
-        Array.Sort(_nodes, delegate(GameObject a, GameObject b ) {
-        return a.gameObject.transform.position.x.CompareTo(b.gameObject.transform.position.x);
+    private List<GameObject> CmpX(List<GameObject> _nodes) {
+        return _nodes.Sort((a,b)=>{
+          return a.gameObject.transform.position.x.CompareTo(b.gameObject.transform.position.x);
         });
-        return _nodes;
     }
 
-    private GameObject[] CmpY(GameObject[] _nodes) {
-        Array.Sort(_nodes, delegate(GameObject a, GameObject b ) {
+    private List<GameObject> CmpY(List<GameObject>  _nodes) {
+        return _nodes.Sort((a,b)=>{
         return a.gameObject.transform.position.y.CompareTo(b.gameObject.transform.position.y);
         });
-        return _nodes;
     }
 
-    private GameObject[] CmpZ(GameObject[] _nodes) {
-        Array.Sort(_nodes, delegate(GameObject a, GameObject b ) {
-        return a.gameObject.transform.position.y.CompareTo(b.gameObject.transform.position.y);
+    private List<GameObject> CmpZ(List<GameObject> _nodes) {
+        return _nodes.Sort((a,b)=>{
+        return a.gameObject.transform.position.z.CompareTo(b.gameObject.transform.position.z);
         });
-        return _nodes;
     }
     /** END COMPARE */
 
@@ -112,9 +94,9 @@ public class KD_Tree : MonoBehaviour
     // public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
     public static void SearchTree(Collider _col){
         // perform action on Cube.142
-        KD_Node temp = treeNodesList.Find(x => x.nodeName == _col.name);
-        Debug.Log(temp.leftChild);
-        Debug.Log(temp.rightChild);
+        // KD_Node temp = treeNodesList.Find(x => x.nodeName == _col.name);
+        // Debug.Log(temp.leftChild);
+        // Debug.Log(temp.rightChild);
         
         // if(_root == null) return null;
         
@@ -133,7 +115,7 @@ public class KD_Tree : MonoBehaviour
 
     IEnumerator RotateNodes(){
         foreach (var item in treeNodesList){
-            item.RotateNode();
+            // item.RotateNode();
             yield return new WaitForSeconds(0.01f);
         }
     }

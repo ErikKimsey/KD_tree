@@ -12,8 +12,6 @@ public class TouchManager : MonoBehaviour
         Debug.Log("TOUCH CLASS");
     }
 
-
-
     private void HandleTouch(){
         touch = Input.GetTouch(0);
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
