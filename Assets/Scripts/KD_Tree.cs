@@ -8,22 +8,17 @@ using UnityEngine;
 public class KD_Tree : MonoBehaviour
 {
 
-    GameObject[] treeNodesArr;
+    private GameObject[] treeNodesArr;
     private static List<GameObject> treeNodesList;
     private static List<KD_Node> KDNodesList;
+
     public string tagName;
     public int dimensions = 3;
-    private int totalNodeCount;
-    private int nodeListDepth;
-    private int globalDepth = 1;
 
-
-    public float xAngle, yAngle, zAngle;
     void Start()
     {
         treeNodesList = new List<GameObject>();
         KDNodesList = new List<KD_Node>();
-        nodeListDepth = 0;
         SetTreeNodesList();
     }
 
