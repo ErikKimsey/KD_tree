@@ -22,6 +22,7 @@ public class KD_Tree : MonoBehaviour
     void Start()
     {
         treeNodesList = new List<GameObject>();
+        KDNodesList = new List<KD_Node>();
         nodeListDepth = 0;
         SetTreeNodesList();
     }
@@ -36,14 +37,20 @@ public class KD_Tree : MonoBehaviour
     /** BEGIN INSERT */
     private KD_Node Insertion(List<GameObject> nodes, int _depth, KD_Node _parent = null){
         int currDim = _depth % dimensions;
-        Debug.Log(currDim);
         List<GameObject> orderedList = new List<GameObject>();
-        Debug.Log(nodes.Count);
         KD_Node node;
         int median;
         /**
         * sort nodes[] using currDum and comparator (CmpX, CmpY, CmpZ)
         */
+        Debug.Log(nodes.Count);
+        if(nodes.Count == 1){
+            return new KD_Node(nodes[0]);
+        }
+
+        if(nodes.Count <= 0){
+            return null;
+        }
         if(_depth == 0) {
           orderedList = CmpX(nodes);
         //   Debug.Log("X");
@@ -60,12 +67,12 @@ public class KD_Tree : MonoBehaviour
 
 
         median = Mathf.FloorToInt(orderedList.Count / 2);
-
+        // Debug.Log(median);
+        
         node = new KD_Node(orderedList[median]);
         
-        int end = orderedList.Count - (median + 1);
-        Debug.Log(end);
-        node.rightChild = Insertion(orderedList.GetRange(median+1, end), _depth + 1, node);
+        int rightEnd = orderedList.Count - (median + 1);
+        node.rightChild = Insertion(orderedList.GetRange(median+1, rightEnd), _depth + 1, node);
         node.leftChild = Insertion(orderedList.GetRange(0, median), _depth + 1, node);
         return node;
     }
