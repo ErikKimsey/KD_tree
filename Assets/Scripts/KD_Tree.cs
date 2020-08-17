@@ -32,18 +32,6 @@ public class KD_Tree : MonoBehaviour
         treeNodesList = new List<GameObject>(treeNodesArr);
 
         KDNodesList.Add(Insertion(treeNodesList, 0));
-        foreach (var item in KDNodesList)
-        {
-            if(item.rightChild != null){
-                Debug.Log("RIGHT CHILD POS");
-                Debug.Log(item.rightChild.GetNodePosition());
-            }
-            if(item.leftChild != null){
-                Debug.Log("LEFT CHILD POS");
-                Debug.Log(item.leftChild.GetNodePosition());
-            }
-        }
-        
     }
 
     /** BEGIN INSERT */
@@ -101,15 +89,6 @@ public class KD_Tree : MonoBehaviour
 
     
     /** BEGIN SEARCH */
-    // 1. Touch
-    // 2. use touch position to identify object touched
-    // 3. make object touched the ROOT
-    // 4. use ROOT to search for child node objects
-    // ---- right node: a. perform action, b. call SearchTree with right child as ROOT
-    // ---- left node: a. perform action, b. call SearchTree with right child as ROOT
-
-    
-    // public KD_Node SearchTree(KD_Node _root, Vector3 _touchPos, int _depthLevel){
     public static void SearchTree(Collider _col){
         // perform action on Cube.142
         // KD_Node temp = treeNodesList.Find(x => x.nodeName == _col.name);
