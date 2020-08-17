@@ -29,6 +29,8 @@ class KD_Node
     }
 
     public void RotateNode(){
-        this.nodeTransform.Rotate(90f, 90f, 0f, Space.World);
+        Vector3 upScale = new Vector3(1f,1f,1f);
+        this.nodeTransform.Rotate(45f, 90f, 0f, Space.World);
+        this.nodeTransform.localScale += upScale;
     }
 }

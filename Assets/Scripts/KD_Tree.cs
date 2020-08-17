@@ -85,10 +85,9 @@ public class KD_Tree : MonoBehaviour
     
     /** BEGIN SEARCH */
     public static void SearchTree(Collider _col){
-       KD_Node target;
+       KD_Node target = null;
        target = KDNodesList.Find(x => x.nodeName == _col.name);
        if(target == null) return;
-       Debug.Log(target.GetNodePosition());
        RotateNodes(target);
     }
     /** END SEARCH */
@@ -96,14 +95,14 @@ public class KD_Tree : MonoBehaviour
     /** BEGIN ROTATION FUNC*/
 
     private static void RotateNodes(KD_Node _target){
-        Debug.Log(_target.nodeName);
-        Debug.Log(_target.GetNodePosition());
-        // foreach (var item in KDNodesList){
-        //     item.RotateNode();
-        // }
-        if(_target.rightChild == null) return;
-        if(_target.leftChild == null) return;
-        
+
+        // if(_target.rightChild == null) yield return new WaitForSeconds(0.0f);
+        // if(_target.leftChild == null) yield return new WaitForSeconds(0.0f);
+
+        _target.RotateNode();
+
+        // RotateNodes(_target.rightChild);
+        // RotateNodes(_target.leftChild);
     }
     /** END ROTATION FUNC*/
 
