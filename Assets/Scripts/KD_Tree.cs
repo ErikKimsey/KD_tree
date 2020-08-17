@@ -25,7 +25,6 @@ public class KD_Tree : MonoBehaviour
     private void SetTreeNodesList(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
         treeNodesList = new List<GameObject>(treeNodesArr);
-
         KDNodesList.Add(Insertion(treeNodesList, 0));
     }
 
@@ -44,6 +43,7 @@ public class KD_Tree : MonoBehaviour
         if(nodes.Count <= 0){
             return null;
         }
+
         if(_depth == 0) {
           orderedList = CmpX(nodes);
         } else if(currDim == 2){
@@ -85,31 +85,25 @@ public class KD_Tree : MonoBehaviour
     
     /** BEGIN SEARCH */
     public static void SearchTree(Collider _col){
-        // perform action on Cube.142
-        // KD_Node temp = treeNodesList.Find(x => x.nodeName == _col.name);
-        // Debug.Log(temp.leftChild);
-        // Debug.Log(temp.rightChild);
-        
-        // if(_root == null) return null;
-        
-        // int currAxis = 0;
-        // while(currAxis < ){
-        //     if(_touchPos.x < rootPos.x){
-
-        //     }
-        // }
+       KD_Node target;
+       target = KDNodesList.Find(x => x.nodeName == _col.name);
+       if(target == null) return;
+       Debug.Log(target.GetNodePosition());
+       RotateNodes(target);
     }
     /** END SEARCH */
 
     /** BEGIN ROTATION FUNC*/
 
-
-
-    IEnumerator RotateNodes(){
-        foreach (var item in treeNodesList){
-            // item.RotateNode();
-            yield return new WaitForSeconds(0.01f);
-        }
+    private static void RotateNodes(KD_Node _target){
+        Debug.Log(_target.nodeName);
+        Debug.Log(_target.GetNodePosition());
+        // foreach (var item in KDNodesList){
+        //     item.RotateNode();
+        // }
+        if(_target.rightChild == null) return;
+        if(_target.leftChild == null) return;
+        
     }
     /** END ROTATION FUNC*/
 
