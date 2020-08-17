@@ -30,7 +30,19 @@ public class KD_Tree : MonoBehaviour
     private void SetTreeNodesList(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
         treeNodesList = new List<GameObject>(treeNodesArr);
+
         KDNodesList.Add(Insertion(treeNodesList, 0));
+        foreach (var item in KDNodesList)
+        {
+            if(item.rightChild != null){
+                Debug.Log("RIGHT CHILD POS");
+                Debug.Log(item.rightChild.GetNodePosition());
+            }
+            if(item.leftChild != null){
+                Debug.Log("LEFT CHILD POS");
+                Debug.Log(item.leftChild.GetNodePosition());
+            }
+        }
         
     }
 
@@ -40,12 +52,10 @@ public class KD_Tree : MonoBehaviour
         List<GameObject> orderedList = new List<GameObject>();
         KD_Node node;
         int median;
-        /**
-        * sort nodes[] using currDum and comparator (CmpX, CmpY, CmpZ)
-        */
-        Debug.Log(nodes.Count);
+
         if(nodes.Count == 1){
-            return new KD_Node(nodes[0]);
+            node = new KD_Node(nodes[0]);
+            return node;
         }
 
         if(nodes.Count <= 0){
@@ -53,27 +63,22 @@ public class KD_Tree : MonoBehaviour
         }
         if(_depth == 0) {
           orderedList = CmpX(nodes);
-        //   Debug.Log("X");
         } else if(currDim == 2){
           orderedList = CmpZ(nodes);
-        //   Debug.Log("Z");
         } else if (currDim == 1){
           orderedList = CmpY(nodes);
-        //   Debug.Log("Y");
         } else {
           orderedList = CmpX(nodes);
-        //   Debug.Log("X");
         }
 
-
         median = Mathf.FloorToInt(orderedList.Count / 2);
-        // Debug.Log(median);
         
         node = new KD_Node(orderedList[median]);
         
         int rightEnd = orderedList.Count - (median + 1);
         node.rightChild = Insertion(orderedList.GetRange(median+1, rightEnd), _depth + 1, node);
         node.leftChild = Insertion(orderedList.GetRange(0, median), _depth + 1, node);
+        KDNodesList.Add(node);
         return node;
     }
 
