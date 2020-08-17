@@ -21,7 +21,7 @@ public class KD_Tree : MonoBehaviour
     public float xAngle, yAngle, zAngle;
     void Start()
     {
-        treeNodesList = new List<KD_Node>();
+        treeNodesList = new List<GameObject>();
         nodeListDepth = 0;
         SetTreeNodesList();
     }
@@ -29,55 +29,61 @@ public class KD_Tree : MonoBehaviour
     private void SetTreeNodesList(){
         treeNodesArr = GameObject.FindGameObjectsWithTag(tagName);
         treeNodesList = new List<GameObject>(treeNodesArr);
-        KDNodesList.Add(Insert(treeNodesList, 0));
+        KDNodesList.Add(Insertion(treeNodesList, 0));
         
     }
 
     /** BEGIN INSERT */
-    private KD_Node Insert(List<GameObject> nodes, int _depth, KD_Node _parent = null){
+    private KD_Node Insertion(List<GameObject> nodes, int _depth, KD_Node _parent = null){
         int currDim = _depth % dimensions;
         Debug.Log(currDim);
+        List<GameObject> orderedList = new List<GameObject>();
+        Debug.Log(nodes.Count);
         KD_Node node;
         int median;
         /**
         * sort nodes[] using currDum and comparator (CmpX, CmpY, CmpZ)
         */
         if(_depth == 0) {
-          nodes = CmpX(nodes);
-        } else if(_depth % currDim == 2){
-          nodes = CmpZ(nodes);
-        } else if (_depth % currDim == 1){
-          nodes = CmpY(nodes);
+          orderedList = CmpX(nodes);
+        //   Debug.Log("X");
+        } else if(currDim == 2){
+          orderedList = CmpZ(nodes);
+        //   Debug.Log("Z");
+        } else if (currDim == 1){
+          orderedList = CmpY(nodes);
+        //   Debug.Log("Y");
         } else {
-          nodes = CmpX(nodes);
+          orderedList = CmpX(nodes);
+        //   Debug.Log("X");
         }
 
-        median = Mathf.FloorToInt(nodes.Count / 2);
-        Debug.Log("median");
-        Debug.Log(median);
-        node = new KD_Node(nodes[median]);
-        node.rightChild = Insert(nodes.GetRange(median + 1, nodes.Count), _depth + 1, node);
-        node.leftChild = Insert(nodes.GetRange(0, median-1), _depth + 1, node);
+
+        median = Mathf.FloorToInt(orderedList.Count / 2);
+
+        node = new KD_Node(orderedList[median]);
+        
+        int end = orderedList.Count - (median + 1);
+        Debug.Log(end);
+        node.rightChild = Insertion(orderedList.GetRange(median+1, end), _depth + 1, node);
+        node.leftChild = Insertion(orderedList.GetRange(0, median), _depth + 1, node);
         return node;
     }
 
     /** BEGIN COMPARE */
     private List<GameObject> CmpX(List<GameObject> _nodes) {
-        return _nodes.Sort((a,b)=>{
-          return a.gameObject.transform.position.x.CompareTo(b.gameObject.transform.position.x);
-        });
+        _nodes.Sort((a,b)=> a.gameObject.transform.position.x.CompareTo(b.gameObject.transform.position.x));
+        return _nodes;
     }
 
     private List<GameObject> CmpY(List<GameObject>  _nodes) {
-        return _nodes.Sort((a,b)=>{
-        return a.gameObject.transform.position.y.CompareTo(b.gameObject.transform.position.y);
-        });
+        _nodes.Sort((a,b)=> a.gameObject.transform.position.y.CompareTo(b.gameObject.transform.position.y));
+        return _nodes;
     }
 
     private List<GameObject> CmpZ(List<GameObject> _nodes) {
-        return _nodes.Sort((a,b)=>{
-        return a.gameObject.transform.position.z.CompareTo(b.gameObject.transform.position.z);
-        });
+        _nodes.Sort((a,b)=> a.gameObject.transform.position.z.CompareTo(b.gameObject.transform.position.z));
+        return _nodes;
     }
     /** END COMPARE */
 
