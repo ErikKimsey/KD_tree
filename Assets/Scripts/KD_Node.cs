@@ -17,6 +17,7 @@ class KD_Node
         this.nodeName = this.node.name;
         this.SetNodeTransform(this.node.transform);
         this.collider = this.node.GetComponent<Collider>();
+        Debug.Log(this.collider.name);
     }
 
     public int GetNodeID(){
@@ -25,11 +26,6 @@ class KD_Node
 
     public void ToggleIsTrigger(){
         this.collider.isTrigger = (this.collider.isTrigger == true) ? false : true;
-    }
-
-    void OnCollisionEnter(Collider other)
-    {
-       Debug.Log(other);
     }
 
     public Collider[] GetColliderOthers(){
