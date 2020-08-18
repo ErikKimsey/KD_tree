@@ -8,7 +8,7 @@ class KD_Node
     private int nodeDepth;
     private Transform nodeTransform;
     public string nodeName;
-    public KD_Node leftChild, rightChild;   
+    public KD_Node leftChild = null, rightChild = null;   
 
     public KD_Node(GameObject _node){
         this.node = _node;
@@ -29,7 +29,9 @@ class KD_Node
     }
 
     public void RotateNode(){
-        Vector3 upScale = new Vector3(1f,1f,1f);
+        Debug.Log("FROM NODE:");
+        Debug.Log(this.nodeName);
+        Vector3 upScale = new Vector3(0.5f,0.5f,0.5f);
         this.nodeTransform.Rotate(45f, 90f, 0f, Space.World);
         this.nodeTransform.localScale += upScale;
     }

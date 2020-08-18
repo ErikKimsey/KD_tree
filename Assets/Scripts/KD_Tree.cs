@@ -89,20 +89,35 @@ public class KD_Tree : MonoBehaviour
        target = KDNodesList.Find(x => x.nodeName == _col.name);
        if(target == null) return;
        RotateNodes(target);
+
+    }
+
+    private void MakeWave(KD_Node _currNode){
+        // 1. define radius
+        // 2. get objects in radius
+        // 3. set list of object who've performed action
+        // 4. if object not in (^) list: perform action on objects in radius
+        // 5. recursively: Steps 2 - 4
     }
     /** END SEARCH */
 
     /** BEGIN ROTATION FUNC*/
-
     private static void RotateNodes(KD_Node _target){
-
-        // if(_target.rightChild == null) yield return new WaitForSeconds(0.0f);
-        // if(_target.leftChild == null) yield return new WaitForSeconds(0.0f);
-
+         
         _target.RotateNode();
 
-        // RotateNodes(_target.rightChild);
-        // RotateNodes(_target.leftChild);
+        if(_target.leftChild != null && _target.rightChild != null) {
+            RotateNodes(_target.leftChild);
+            RotateNodes(_target.rightChild);
+        } 
+
+        if(_target.rightChild != null && _target.leftChild == null) {
+            RotateNodes(_target.rightChild);
+        }
+
+        if(_target.rightChild == null && _target.leftChild != null) {
+            RotateNodes(_target.leftChild);
+        }
     }
     /** END ROTATION FUNC*/
 
