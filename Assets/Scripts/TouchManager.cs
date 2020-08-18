@@ -32,6 +32,13 @@ public class TouchManager : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter(Collision other) {
+        foreach (ContactPoint contact in other.contacts)
+        {
+            Debug.Log(contact);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

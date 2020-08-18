@@ -15,6 +15,8 @@ public class KD_Tree : MonoBehaviour
     public string tagName;
     public int dimensions = 3;
 
+    public float nearestRadius;
+
     void Start()
     {
         treeNodesList = new List<GameObject>();
@@ -86,14 +88,18 @@ public class KD_Tree : MonoBehaviour
     /** BEGIN SEARCH */
     public static void SearchTree(Collider _col){
        KD_Node target = null;
+
        target = KDNodesList.Find(x => x.nodeName == _col.name);
+       target.ToggleIsTrigger();
        if(target == null) return;
        RotateNodes(target);
 
     }
 
-    private void MakeWave(KD_Node _currNode){
+    private void MakeWave(KD_Node _target){
+
         // 1. define radius
+
         // 2. get objects in radius
         // 3. set list of object who've performed action
         // 4. if object not in (^) list: perform action on objects in radius
