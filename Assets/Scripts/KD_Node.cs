@@ -17,7 +17,7 @@ class KD_Node
         this.nodeName = this.node.name;
         this.SetNodeTransform(this.node.transform);
         this.collider = this.node.GetComponent<Collider>();
-        Debug.Log(this.collider.name);
+        Debug.Log(this.collider);
     }
 
     public int GetNodeID(){

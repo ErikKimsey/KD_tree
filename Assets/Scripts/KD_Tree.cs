@@ -99,7 +99,7 @@ public class KD_Tree : MonoBehaviour
     private void MakeWave(KD_Node _target){
 
         // 1. define radius
-
+        
         // 2. get objects in radius
         // 3. set list of object who've performed action
         // 4. if object not in (^) list: perform action on objects in radius
