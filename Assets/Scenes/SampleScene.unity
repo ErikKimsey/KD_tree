@@ -7196,7 +7196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4220f5722b45473e968b344f64f6d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pyramid: {fileID: 919132149155446097, guid: 0d223793dd31143e491c349b4b0aa1f6, type: 3}
+  pyramid: {fileID: 2430936895509044886, guid: 7db4b8aa3a7de4b5aa295599b87fd9ad, type: 3}
   startPosition: {x: 0, y: -3, z: 0}
   dimensionCount: 5
   distanceMultiplier: 2

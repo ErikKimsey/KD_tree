@@ -26,7 +26,7 @@ public class Cube : MonoBehaviour
     }
 
     private void BuildCube(){
-       
+       int name = 0;
         for (int x = 0; x < dimensionCount; x++){
             for (int y = 0; y < dimensionCount; y++){
                 for (int z = 0; z < dimensionCount; z++){
@@ -37,6 +37,8 @@ public class Cube : MonoBehaviour
                     Debug.Log(currPos);
                     GameObject clone = Instantiate(pyramid, currPos, pyramidRotation);
                     clone.transform.SetParent(transform);
+                    name += 1;
+                    clone.gameObject.name = "pyramid: " + name.ToString();
                 }
             }
         }

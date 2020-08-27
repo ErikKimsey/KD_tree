@@ -10,6 +10,11 @@ public class PyramidHandler : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name);
+    }
+
     // Update is called once per frame
     void Update()
     {
