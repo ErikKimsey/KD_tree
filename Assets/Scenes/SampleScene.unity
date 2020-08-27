@@ -210,7 +210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9595626bbb1304410b5a0bb6d2eae538, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -248,8 +248,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30997252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 4, z: -28.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -22.85, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
@@ -7178,7 +7178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653952655}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 4, z: -28.4}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7197,8 +7197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pyramid: {fileID: 919132149155446097, guid: 0d223793dd31143e491c349b4b0aa1f6, type: 3}
-  startPosition: {x: 0, y: 0, z: 0}
-  totalPyramids: 3
+  startPosition: {x: 0, y: -3, z: 0}
+  dimensionCount: 5
+  distanceMultiplier: 2
+  pyramidRotation: {x: 0.007434673, y: 0.95849115, z: -0.2839182, w: 0.025099019}
 --- !u!1 &659523082
 GameObject:
   m_ObjectHideFlags: 0
@@ -9735,7 +9737,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191823253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 659523083}
@@ -12176,13 +12178,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0.050586365, y: 0.13122015, z: -0.0067047356, w: 0.99003905}
-  m_LocalPosition: {x: -4.2, y: 6.39, z: -40.62}
+  m_LocalRotation: {x: 0.17607632, y: 0.25009775, z: -0.046307735, w: 0.95094895}
+  m_LocalPosition: {x: -2.2, y: 5, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 5.85, y: 15.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.98, y: 29.47, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
   m_ObjectHideFlags: 0
