@@ -17,11 +17,9 @@ public class Cube : MonoBehaviour
     void Start()
     {
         startX = startPosition.x;
-        Debug.Log(startX);
         startY = startPosition.y;
-        Debug.Log(startY);
         startZ = startPosition.z;
-        Debug.Log(startZ);
+
         BuildCube();
     }
 
@@ -34,7 +32,6 @@ public class Cube : MonoBehaviour
                     yAx = startY + y * distanceMultiplier;
                     zAx = startZ + z * distanceMultiplier;
                     currPos = new Vector3(xAx, yAx, zAx);
-                    Debug.Log(currPos);
                     GameObject clone = Instantiate(pyramid, currPos, pyramidRotation);
                     clone.transform.SetParent(transform);
                     name += 1;

@@ -35,7 +35,7 @@ public class TouchManager : MonoBehaviour
     public void OnCollisionEnter(Collision other) {
         foreach (ContactPoint contact in other.contacts)
         {
-            Debug.Log(contact);
+            // Debug.Log(contact);
         }
     }
 
