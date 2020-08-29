@@ -10,29 +10,27 @@ public class PyramidHandler : MonoBehaviour
     private string lastRayCastHit;
     private ContactPoint[] contactPoints;
     private List<Collider> collisions;
+    private float colliderRadius;
+    private SphereCollider sphereCollider;
+    private Collider[] neighbors;
+    private GameObject parent;
 
     void Start()
     {
         collisions = new List<Collider>();
+        sphereCollider = GetComponent<SphereCollider>();
+        colliderRadius = sphereCollider.radius;
+        GetNeighbors(colliderRadius);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(" >>>>>>>>>>>>>> ");
-        Debug.Log(lastRayCastHit);
-        Debug.Log(other);
-        Debug.Log(" <<<<<<<<<<<<<< ");
-        if(other != null){
-            collisions.Add(other);
-        }
-    }
-
-    // private 
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("Collision contacts: ");
-        Debug.Log(other.contacts.Length);
+    
+    private void GetNeighbors(float radius){
+         neighbors = Physics.OverlapSphere(this.transform.position, radius);
+        Debug.Log(" >>>>>>>>>>>>>>>>>>");
+         foreach (var item in neighbors)
+         {
+            Debug.Log(item);
+         }
+        Debug.Log(" <<<<<<<<<<<<<<<<<<");
     }
 
     private void HandleTouch(){
@@ -62,20 +60,18 @@ public class PyramidHandler : MonoBehaviour
         if(col.name == lastRayCastHit){
             col.transform.Rotate(45f, 45f, 45f, Space.Self);
         }
+        StartCoroutine(RotateNeighbors(neighbors));
     }
 
-    private void RotateNeighbors(Collider[] cols){
-        foreach (var item in cols)
-        {
-            Debug.Log(item.name);
+    IEnumerator RotateNeighbors(Collider[] cols){
+        foreach (var item in cols){
+           PerformRotation(item);
+           yield return new WaitForSeconds(0.5f);
         }
     }
 
-
-
-    IEnumerator HandleNeighborCollision(Collider col){
-
-        yield return new WaitForSeconds(1.0f);
+    private void PerformRotation(Collider col){
+        col.transform.Rotate(45f, 45f, 45f);
     }
 
     /**
