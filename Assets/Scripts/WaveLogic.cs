@@ -14,8 +14,9 @@ public class WaveLogic : MonoBehaviour
     * -     c. create list of children of each node, excluding:
     * -         -- node's parent,
     * -         -- the children of node's siblings,
-    * -     d. if (all nodes have no children) : STOP
-    * -     d. if (some nodes still have children) : REPEAT 3.b - 3.d
+    * -     d... 
+    * -         d.1. - if (all nodes have no children) : STOP
+    * -         d.2. - if (some nodes still have children) : REPEAT 3.b - 3.d
     * - 4. 
     * - 5. 
     */
