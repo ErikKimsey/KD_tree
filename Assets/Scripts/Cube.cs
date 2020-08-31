@@ -12,6 +12,7 @@ public class Cube : MonoBehaviour
     public float distanceMultiplier;
     public Quaternion pyramidRotation;
     private float startX, startY, startZ;
+    private List<GameObject> pyramidList;
     
 
     void Start()
@@ -19,7 +20,7 @@ public class Cube : MonoBehaviour
         startX = startPosition.x;
         startY = startPosition.y;
         startZ = startPosition.z;
-
+        pyramidList = new List<GameObject>();
         BuildCube();
     }
 
@@ -36,9 +37,14 @@ public class Cube : MonoBehaviour
                     clone.transform.SetParent(transform);
                     name += 1;
                     clone.gameObject.name = "pyramid: " + name.ToString();
+                    pyramidList.Add(clone);
                 }
             }
         }
+        // foreach (var item in pyramidList)
+        // {
+        //     Debug.Log(item);
+        // }
     }
 
     // Update is called once per frame

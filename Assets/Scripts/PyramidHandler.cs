@@ -10,6 +10,7 @@ public class PyramidHandler : MonoBehaviour
     private string lastRayCastHit;
     private ContactPoint[] contactPoints;
     private List<Collider> collisions;
+    private List<GameObject> children;
     private float colliderRadius;
     private SphereCollider sphereCollider;
     private Collider[] neighbors;
@@ -21,18 +22,27 @@ public class PyramidHandler : MonoBehaviour
         collisions = new List<Collider>();
         sphereCollider = GetComponent<SphereCollider>();
         colliderRadius = sphereCollider.radius;
+        children = new List<GameObject>();
         GetNeighbors(colliderRadius);
     }
     
     private void GetNeighbors(float radius){
          neighbors = Physics.OverlapSphere(this.transform.position, radius);
-        // Debug.Log(" >>>>>>>>>>>>>>>>>>");
-        // Debug.Log(sphereCollider);
-        //  foreach (var item in neighbors)
-        //  {
-        //     Debug.Log(item);
-        //  }
-        // Debug.Log(" <<<<<<<<<<<<<<<<<<");
+         GetChildren();
+    }
+
+    private void GetChildren(){
+        Debug.Log("this and this' children :::::");
+        Debug.Log("this and this' children :::::");
+        Debug.Log("this and this' children :::::");
+        Debug.Log(this.gameObject.name);
+        foreach (var item in neighbors)
+        {
+            if(item.gameObject.name != this.gameObject.name){
+                this.children.Add(item.gameObject);
+                Debug.Log(item.gameObject.name);
+            }
+        }
     }
 
     public void SetParent(SphereCollider parent){
@@ -43,12 +53,12 @@ public class PyramidHandler : MonoBehaviour
         touch = Input.GetTouch(0);
         Ray ray = Camera.main.ScreenPointToRay(touch.position);
         if(touch.phase == TouchPhase.Began){
-            if(this.isRayCastHit == false){
+            // if(this.isRayCastHit == false){
                 HandleHit(ray);
                 // ToggleTouchHitLimter(); 
-            } else {
-                return;
-            }
+            // } else {
+            //     return;
+            // }
         }
         if (touch.phase == TouchPhase.Moved) {
             // HandleHit(ray);
@@ -63,34 +73,21 @@ public class PyramidHandler : MonoBehaviour
     */
 
     public void RotateThisPyramid(Collider col){
-        if(col.name == lastRayCastHit){
+        if(col.name == this.lastRayCastHit){
             col.transform.Rotate(45f, 45f, 45f, Space.Self);
         }
-        StartCoroutine(RotateNeighbors(neighbors));
+        StartCoroutine(RotateNeighbors(children));
         // StartCoroutine(RotateNeighbors(neighbors));
     }
 
-    IEnumerator RotateNeighbors(Collider[] cols){
-         Debug.Log(" >>>>>>>>>>>>>>>>>>");
-        Debug.Log(sphereCollider.name);
-        foreach (var item in cols)
-        {
-            Debug.Log(item);
-        }
-        Debug.Log(" <<<<<<<<<<<<<<<<<<");
-        foreach (var item in cols){
-            // if(item != sphereCollider){
-                // Debug.Log(" >>>>>>>>>>>>>>>>>>");
-                // Debug.Log("curr rotating");
-                // Debug.Log(item.name);
-                PerformRotation(item);
-                // Debug.Log(" <<<<<<<<<<<<<<<<<<");
-            // }
+    IEnumerator RotateNeighbors(List<GameObject> children){
+        foreach (var item in children){
+            PerformRotation(item);
            yield return new WaitForSeconds(0.5f);
         }
     }
 
-    private void PerformRotation(Collider col){
+    private void PerformRotation(GameObject col){
         col.transform.Rotate(45f, 45f, 45f);
     }
 
@@ -106,10 +103,6 @@ public class PyramidHandler : MonoBehaviour
             return;
         } 
     }
-
-    // private void ToggleTouchHitLimter(){
-    //     this.isRayCastHit = (this.isRayCastHit == false) ? true : false;
-    // }
 
     private void HandleHit(Ray _ray){
         if(Physics.Raycast(_ray.origin, _ray.direction, out hit)){
