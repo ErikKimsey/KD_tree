@@ -14,6 +14,7 @@ public class PyramidHandler : MonoBehaviour
     private SphereCollider sphereCollider;
     private Collider[] neighbors;
     private SphereCollider parent;
+    private bool hasRotated = false;    
 
     void Start()
     {
@@ -70,7 +71,7 @@ public class PyramidHandler : MonoBehaviour
     }
 
     IEnumerator RotateNeighbors(Collider[] cols){
-        Debug.Log(" >>>>>>>>>>>>>>>>>>");
+         Debug.Log(" >>>>>>>>>>>>>>>>>>");
         Debug.Log(sphereCollider.name);
         foreach (var item in cols)
         {
@@ -78,9 +79,13 @@ public class PyramidHandler : MonoBehaviour
         }
         Debug.Log(" <<<<<<<<<<<<<<<<<<");
         foreach (var item in cols){
-            if(item.name != sphereCollider.name){
+            // if(item != sphereCollider){
+                // Debug.Log(" >>>>>>>>>>>>>>>>>>");
+                // Debug.Log("curr rotating");
+                // Debug.Log(item.name);
                 PerformRotation(item);
-            }
+                // Debug.Log(" <<<<<<<<<<<<<<<<<<");
+            // }
            yield return new WaitForSeconds(0.5f);
         }
     }
