@@ -10,7 +10,7 @@ public class PyramidHandler : MonoBehaviour
     private string lastRayCastHit;
     private ContactPoint[] contactPoints;
     private List<Collider> collisions;
-    private List<GameObject> children;
+    private List<GameObject> neighborsList;
     private float colliderRadius;
     private SphereCollider sphereCollider;
     private Collider[] neighbors;
@@ -22,25 +22,27 @@ public class PyramidHandler : MonoBehaviour
         collisions = new List<Collider>();
         sphereCollider = GetComponent<SphereCollider>();
         colliderRadius = sphereCollider.radius;
-        children = new List<GameObject>();
+        neighborsList = new List<GameObject>();
         GetNeighbors(colliderRadius);
     }
     
     private void GetNeighbors(float radius){
-         neighbors = Physics.OverlapSphere(this.transform.position, radius);
-         GetChildren();
+        neighbors = Physics.OverlapSphere(this.transform.position, radius);
+
+        foreach (var item in neighbors)
+            {
+                Debug.Log("neighbors");
+                Debug.Log(item);
+            }
+
+        SetNeighborsList();
     }
 
-    private void GetChildren(){
-        Debug.Log("this and this' children :::::");
-        Debug.Log("this and this' children :::::");
-        Debug.Log("this and this' children :::::");
-        Debug.Log(this.gameObject.name);
+    private void SetNeighborsList(){
         foreach (var item in neighbors)
         {
-            if(item.gameObject.name != this.gameObject.name){
-                this.children.Add(item.gameObject);
-                Debug.Log(item.gameObject.name);
+            if(item.gameObject != this.gameObject){
+                this.neighborsList.Add(item.gameObject);
             }
         }
     }
@@ -76,12 +78,12 @@ public class PyramidHandler : MonoBehaviour
         if(col.name == this.lastRayCastHit){
             col.transform.Rotate(45f, 45f, 45f, Space.Self);
         }
-        StartCoroutine(RotateNeighbors(children));
+        StartCoroutine(RotateNeighbors(neighborsList));
         // StartCoroutine(RotateNeighbors(neighbors));
     }
 
-    IEnumerator RotateNeighbors(List<GameObject> children){
-        foreach (var item in children){
+    IEnumerator RotateNeighbors(List<GameObject> neighborsList){
+        foreach (var item in neighborsList){
             PerformRotation(item);
            yield return new WaitForSeconds(0.5f);
         }

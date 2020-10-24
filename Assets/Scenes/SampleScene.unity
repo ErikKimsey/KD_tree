@@ -361,13 +361,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653952655}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3}
+  m_LocalRotation: {x: 0, y: -0.9396926, z: 0, w: 0.34202018}
+  m_LocalPosition: {x: 5, y: 1.4, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -140, z: 0}
 --- !u!114 &653952657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pyramid: {fileID: 2430936895509044886, guid: 7db4b8aa3a7de4b5aa295599b87fd9ad, type: 3}
   startPosition: {x: 0, y: -3, z: 0}
-  dimensionCount: 5
+  dimensionCount: 2
   distanceMultiplier: 2
   pyramidRotation: {x: 0.007434673, y: 0.95849115, z: -0.2839182, w: 0.025099019}
 --- !u!1 &659523082
@@ -1429,7 +1429,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.17607632, y: 0.25009775, z: -0.046307735, w: 0.95094895}
-  m_LocalPosition: {x: -2.2, y: 5, z: -7.5}
+  m_LocalPosition: {x: -2.2, y: 0.9, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -20,8 +20,13 @@ public class WaveLogic : MonoBehaviour
     * - 4. 
     * - 5. 
     */
+    private List<KD_Node> kdNodeList;
     void Start()
     {
+        kdNodeList = new List<KD_Node>();
+    }
+
+    private void MakeWaves(){
         
     }
 

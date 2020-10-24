@@ -38,7 +38,7 @@ public class TouchManager : MonoBehaviour
             // Debug.Log(contact);
         }
     }
-
+    
     // Update is called once per frame
     void Update()
     {

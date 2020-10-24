@@ -24,6 +24,8 @@ public class Cube : MonoBehaviour
         BuildCube();
     }
 
+
+
     private void BuildCube(){
        int name = 0;
         for (int x = 0; x < dimensionCount; x++){
@@ -41,13 +43,8 @@ public class Cube : MonoBehaviour
                 }
             }
         }
-        // foreach (var item in pyramidList)
-        // {
-        //     Debug.Log(item);
-        // }
     }
 
-    // Update is called once per frame
     void Update()
     {
         
