@@ -15,7 +15,7 @@ public class PyramidHandler : MonoBehaviour
     private SphereCollider sphereCollider;
     private Collider[] neighbors;
     private SphereCollider parent;
-    private bool hasRotated = false;    
+    public bool hasRotated = false;    
 
     void Start()
     {
@@ -28,17 +28,15 @@ public class PyramidHandler : MonoBehaviour
     
     private void GetNeighbors(float radius){
         neighbors = Physics.OverlapSphere(this.transform.position, radius);
-
-        foreach (var item in neighbors)
-            {
-                Debug.Log("neighbors");
-                Debug.Log(item);
-            }
-
-        SetNeighborsList();
+        SetNeighborsList(neighbors);
     }
 
-    private void SetNeighborsList(){
+    public void HasRotated(){
+        Debug.Log(this.name);
+        Debug.Log(this.hasRotated);
+    }
+
+    private void SetNeighborsList(Collider[] neighbors){
         foreach (var item in neighbors)
         {
             if(item.gameObject != this.gameObject){
@@ -85,12 +83,14 @@ public class PyramidHandler : MonoBehaviour
     IEnumerator RotateNeighbors(List<GameObject> neighborsList){
         foreach (var item in neighborsList){
             PerformRotation(item);
+            HasRotated();
            yield return new WaitForSeconds(0.5f);
         }
     }
 
     private void PerformRotation(GameObject col){
         col.transform.Rotate(45f, 45f, 45f);
+        this.hasRotated = true;
     }
 
     /**
